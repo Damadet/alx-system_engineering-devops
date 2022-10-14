@@ -1,4 +1,4 @@
 #command to kill a process named kill me now
-exec {
+exec { 'pkill'
   command => 'pkill -f killmenow':
 }
