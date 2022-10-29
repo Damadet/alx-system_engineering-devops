@@ -33,13 +33,14 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-listen	balancer
-	# frontend config settings
-	bind *:80
-	bind *:443 ssl crt /etc/letsencrypt/live/www.damadet.tech/fullchain.pem
-	http-request redirect scheme https code 301 unless { ssl_fc }
+frontend http
+        bind *:80
+        bind *:443 ssl crt /etc/letsencrypt/live/www.damadet.tech/fullchain.pem
+	redirect scheme https code 301 if !{ssl_fc}
+        default_backend web-backend
+	
 
-	# backend config settings
-	balance roundrobin
-	server 36768-web-01 3.233.242.198:80 check
-	server 36768-web-02 100.25.150.209:80 check
+backend web-backend
+        balance roundrobin
+        server 35979-web-01 3.233.242.198:80 check
+        server 35979-web-02 100.25.150.209:80 check
