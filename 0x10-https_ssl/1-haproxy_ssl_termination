@@ -37,7 +37,7 @@ defaults
 listen balancer
         # frontend config settings
         bind :80
-        bind *:443 ssl crt /etc/letsencrypt/live/damadet.tech/fullchain.pem
+        bind *:443 ssl crt /etc/letsencrypt/live/www.damadet.tech/fullchain.pem
 
         # backend config settings
         balance roundrobin
